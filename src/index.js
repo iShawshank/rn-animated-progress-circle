@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Animated } from 'react-native'
+import { View, Animated, Platform } from 'react-native'
 
 export default class ProgressCircle extends Component {
   static defaultProps = {
@@ -13,8 +13,8 @@ export default class ProgressCircle extends Component {
     animationMethod: null,
     animationConfig: { duration: 200 },
     shouldAnimateFirstValue: false,
-    onChange() {},
-    onChangeAnimationEnd() {},
+    onChange() { },
+    onChangeAnimationEnd() { },
   }
 
   constructor(props) {
@@ -104,7 +104,7 @@ export default class ProgressCircle extends Component {
   animateChange = value =>
     Animated[this.animationMethod](this.state.animatedValue, {
       toValue: value,
-      useNativeDriver: true,
+      useNativeDriver: Platform.OS === 'ios',
       ...this.props.animationConfig,
     }).start(this.props.onChangeAnimationEnd)
 
